@@ -2,6 +2,7 @@
     "name": "berbeflo/modify-dump",
     "description": "A small library that makes use of php8 attributes to modify the var_dump output of objects",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Berbeflo\\ModifyDump\\": "src/"
