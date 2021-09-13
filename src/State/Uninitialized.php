@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Berbeflo\ModifyDump\Formatter;
+namespace Berbeflo\ModifyDump\State;
 
 class Uninitialized
 {

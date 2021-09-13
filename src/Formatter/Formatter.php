@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Berbeflo\ModifyDump\Formatter;
 
 use ReflectionProperty;
+use Berbeflo\ModifyDump\State\Uninitialized;
 
 class Formatter
 {
