@@ -19,6 +19,9 @@ Yeah...
 - Allow definition of filters to e.g. auto-exclude uninitialized properties
 
 ## Usage
+### Installation
+`composer require berbeflo/modify-dump`
+### Example
 ```php
 <?php
 declare(strict_types=1);
