@@ -27,9 +27,10 @@ Yeah...
 declare(strict_types=1);
 
 use Berbeflo\ModifyDump\Attribute\Dump;
+use Berbeflo\ModifyDump\Formatter\AccessModifierFormatter;
 use Berbeflo\ModifyDump\Trait\ModifiedDump;
 
-require_once(__DIR__ . '/../vendor/autoload.php');
+require_once('vendor/autoload.php');
 
 class Test
 {
@@ -38,10 +39,10 @@ class Test
     #[Dump]
     private string $a = "test";
     protected int $b;
-    #[Dump]
     public int | string $c = 5;
-    private $d;
-    #[Dump]
+    #[Dump(AccessModifierFormatter::class)]
+    private static $d;
+    #[Dump(AccessModifierFormatter::class)]
     protected int | string $e;
 }
 
@@ -50,10 +51,10 @@ var_dump(new Test());
 object(Test)#3 (3) {
   ["a"]=>
   string(4) "test"
-  ["c"]=>
-  int(5)
-  ["e"]=>
-  object(Berbeflo\ModifyDump\Formatter\Uninitialized)#7 (0) {
+  ["-d"]=>
+  NULL
+  ["#e"]=>
+  object(Berbeflo\ModifyDump\State\Uninitialized)#6 (0) {
   }
 }
 */
