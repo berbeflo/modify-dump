@@ -15,7 +15,6 @@ Yeah...
 
 ### Functionality
 - Add more Formatters
-- Allow definition of default formatter for a class
 - Allow definition of filters to e.g. auto-exclude uninitialized properties
 
 ## Usage
@@ -27,11 +26,14 @@ Yeah...
 declare(strict_types=1);
 
 use Berbeflo\ModifyDump\Attribute\Dump;
+use Berbeflo\ModifyDump\Attribute\Option;
 use Berbeflo\ModifyDump\Formatter\AccessModifierFormatter;
+use Berbeflo\ModifyDump\Formatter\Formatter;
 use Berbeflo\ModifyDump\Trait\ModifiedDump;
 
 require_once('vendor/autoload.php');
 
+#[Option('default-formatter', AccessModifierFormatter::class)]
 class Test
 {
     use ModifiedDump;
@@ -40,7 +42,7 @@ class Test
     private string $a = "test";
     protected int $b;
     public int | string $c = 5;
-    #[Dump(AccessModifierFormatter::class)]
+    #[Dump(Formatter::class)]
     private static $d;
     #[Dump(AccessModifierFormatter::class)]
     protected int | string $e;
@@ -49,12 +51,12 @@ class Test
 var_dump(new Test());
 /*
 object(Test)#3 (3) {
-  ["a"]=>
+  ["-a"]=>
   string(4) "test"
-  ["-d"]=>
+  ["d"]=>
   NULL
   ["#e"]=>
-  object(Berbeflo\ModifyDump\State\Uninitialized)#6 (0) {
+  object(Berbeflo\ModifyDump\State\Uninitialized)#8 (0) {
   }
 }
 */
