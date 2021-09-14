@@ -15,7 +15,6 @@ Yeah...
 
 ### Functionality
 - Add more Formatters
-- Allow definition of default formatter for a class
 - Allow definition of filters to e.g. auto-exclude uninitialized properties
 
 ## Usage
