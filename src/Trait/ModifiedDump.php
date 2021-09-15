@@ -13,7 +13,9 @@ trait ModifiedDump
     public function __debugInfo() : array
     {
         $builder = new DumpBuilder($this);
-        $builder->parseDumpOptions();
+        $builder
+            ->parseDumpOptions()
+            ->parseFilters();
 
         return $builder->fetch();
     }

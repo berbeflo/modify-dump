@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Berbeflo\ModifyDump\Control;
 
+use Berbeflo\ModifyDump\Attribute\AddFilter;
 use ReflectionClass;
 use ReflectionProperty;
 use Berbeflo\ModifyDump\Attribute\Dump;
@@ -12,12 +13,14 @@ class DumpBuilder
 {
     private ReflectionClass $reflectionClass;
     private Options $options;
+    private array $filters;
 
     public function __construct(
         private object $context,
     ) {
         $this->reflectionClass = new ReflectionClass($context);
         $this->options = new Options();
+        $this->filters = [];
     }
 
     public function parseDumpOptions() : self
@@ -34,15 +37,38 @@ class DumpBuilder
         return $this;
     }
 
+    public function parseFilters() : self
+    {
+        $this->filters = [];
+        foreach ($this->reflectionClass->getAttributes(AddFilter::class) as $filter) {
+            $addFilterObject = $filter->newInstance();
+            $filter = $addFilterObject->createFilter();
+            $this->filters[] = $filter;
+        }
+
+        return $this;
+    }
+
     public function fetch() : array
     {
         $out = [];
-        $propertiesToShow = array_filter($this->reflectionClass->getProperties(), fn (ReflectionProperty $property) => count($property->getAttributes(Dump::class)) > 0);
+        $propertiesToShow = $this->reflectionClass->getProperties();
+        foreach ($this->filters as $filter) {
+            $propertiesToShow = array_filter($propertiesToShow, fn (ReflectionProperty $property) => $filter->isAllowed($property, $this->context));
+        }
 
         foreach ($propertiesToShow as $property) {
-            $attribute = $property->getAttributes(Dump::class)[0];
-            $attributeObject = $attribute->newInstance();
-            $formatter = $attributeObject->createFormatter($this->options, $property, $this->context);
+            $attribute = $property->getAttributes(Dump::class)[0] ?? null;
+            $formatter = null;
+            if ($attribute !== null) {
+                $attributeObject = $attribute->newInstance();
+                $formatter = $attributeObject->createFormatter($this->options, $property, $this->context);
+            }
+
+            if ($formatter === null) {
+                $formatterClass = $this->options->getDefaultFormatter();
+                $formatter = new $formatterClass($property, $this->context);
+            }
 
             $out[$formatter->getIdentifier()] = $formatter->getValue();
         }
