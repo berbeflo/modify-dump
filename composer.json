@@ -14,10 +14,10 @@
     },
     "scripts": {
         "run-ci" : [
-            "phpcs --standard=PSR12 --report=xml src/"
+            "phpcs --standard=PSR12 --exclude=PSR12.Files.FileHeader --report=xml src/"
         ],
         "check-cs" : [
-            "phpcs --standard=PSR12 --report=xml src/"
+            "phpcs --standard=PSR12 --report=xml --exclude=PSR12.Files.FileHeader src/"
         ]
     }
 }
