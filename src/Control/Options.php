@@ -10,7 +10,7 @@ class Options
 {
     private string $defaultFormatterClass = Formatter::class;
 
-    public function setDefaultFormatter(string $defaultFormatterClass) : void
+    public function setDefaultFormatter(string $defaultFormatterClass): void
     {
         if (!is_a($defaultFormatterClass, Formatter::class, true)) {
             throw new InvalidArgumentException('Class ' . $defaultFormatterClass . ' not allowed as Formatter');
@@ -19,7 +19,7 @@ class Options
         $this->defaultFormatterClass = $defaultFormatterClass;
     }
 
-    public function getDefaultFormatter() : string
+    public function getDefaultFormatter(): string
     {
         return $this->defaultFormatterClass;
     }

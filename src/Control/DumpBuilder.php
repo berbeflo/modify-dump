@@ -23,7 +23,7 @@ class DumpBuilder
         $this->filters = [];
     }
 
-    public function parseDumpOptions() : self
+    public function parseDumpOptions(): self
     {
         foreach ($this->reflectionClass->getAttributes(Option::class) as $option) {
             $optionObject = $option->newInstance();
@@ -37,7 +37,7 @@ class DumpBuilder
         return $this;
     }
 
-    public function parseFilters() : self
+    public function parseFilters(): self
     {
         $this->filters = [];
         foreach ($this->reflectionClass->getAttributes(AddFilter::class) as $filter) {
@@ -49,12 +49,15 @@ class DumpBuilder
         return $this;
     }
 
-    public function fetch() : array
+    public function fetch(): array
     {
         $out = [];
         $propertiesToShow = $this->reflectionClass->getProperties();
         foreach ($this->filters as $filter) {
-            $propertiesToShow = array_filter($propertiesToShow, fn (ReflectionProperty $property) => $filter->isAllowed($property, $this->context));
+            $propertiesToShow = array_filter(
+                $propertiesToShow,
+                fn (ReflectionProperty $property) => $filter->isAllowed($property, $this->context)
+            );
         }
 
         foreach ($propertiesToShow as $property) {

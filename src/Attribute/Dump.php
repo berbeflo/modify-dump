@@ -14,10 +14,10 @@ class Dump
 {
     public function __construct(
         private ?string $formatterClass = null
-    )
-    {}
+    ) {
+    }
 
-    public function createFormatter(Options $options, ReflectionProperty $property, object $context) : Formatter
+    public function createFormatter(Options $options, ReflectionProperty $property, object $context): Formatter
     {
         $formatterClass = $this->formatterClass;
 

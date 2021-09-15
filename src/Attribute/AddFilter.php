@@ -12,10 +12,10 @@ class AddFilter
 {
     public function __construct(
         private string $filterClass,
-    )
-    {}
+    ) {
+    }
 
-    public function createFilter() : Filter
+    public function createFilter(): Filter
     {
         $interfaces = class_implements($this->filterClass);
         if (!array_key_exists(Filter::class, $interfaces)) {
