@@ -11,14 +11,15 @@ class Formatter
     public function __construct(
         protected ReflectionProperty $property,
         protected object $context
-    ) {}
+    ) {
+    }
 
-    public function getIdentifier() : string
+    public function getIdentifier(): string
     {
         return $this->property->getName();
     }
 
-    public function getValue() : mixed
+    public function getValue(): mixed
     {
         $this->property->setAccessible(true);
         if (!$this->property->isInitialized($this->context)) {

@@ -7,7 +7,7 @@ use Berbeflo\ModifyDump\Control\DumpBuilder;
 
 trait ModifiedDump
 {
-    public function __debugInfo() : array
+    public function __debugInfo(): array
     {
         $builder = new DumpBuilder($this);
         $builder

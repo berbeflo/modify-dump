@@ -7,7 +7,7 @@ use ReflectionProperty;
 
 class AccessModifierFormatter extends Formatter
 {
-    public function getIdentifier() : string
+    public function getIdentifier(): string
     {
         $modifier = match ($this->property->getModifiers() & ~ReflectionProperty::IS_STATIC) {
             ReflectionProperty::IS_PUBLIC => '+',

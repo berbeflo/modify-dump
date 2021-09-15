@@ -7,5 +7,5 @@ use ReflectionProperty;
 
 interface Filter
 {
-    public function isAllowed(ReflectionProperty $property, object $context) : bool;
+    public function isAllowed(ReflectionProperty $property, object $context): bool;
 }

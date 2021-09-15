@@ -11,14 +11,15 @@ class Option
     public function __construct(
         private string $identifier,
         private string | int | array $value,
-    ) {}
+    ) {
+    }
 
-    public function getIdentifier() : string
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    public function getValue() : string | int | array
+    public function getValue(): string | int | array
     {
         return $this->value;
     }
