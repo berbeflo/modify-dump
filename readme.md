@@ -15,8 +15,7 @@ Yeah...
 
 ### Functionality
 - Add more Formatters
-- Allow definition of default formatter for a class
-- Allow definition of filters to e.g. auto-exclude uninitialized properties
+- Add support for class statistics
 
 ## Usage
 ### Installation
@@ -27,11 +26,19 @@ Yeah...
 declare(strict_types=1);
 
 use Berbeflo\ModifyDump\Attribute\Dump;
-use Berbeflo\ModifyDump\Formatter\AccessModifierFormatter;
+use Berbeflo\ModifyDump\Attribute\Option;
+use Berbeflo\ModifyDump\Filter\NoPrivate;
 use Berbeflo\ModifyDump\Trait\ModifiedDump;
+use Berbeflo\ModifyDump\Attribute\AddFilter;
+use Berbeflo\ModifyDump\Filter\OnlyWithDumpAttribute;
+use Berbeflo\ModifyDump\Formatter\Formatter;
+use Berbeflo\ModifyDump\Formatter\AccessModifierFormatter;
 
 require_once('vendor/autoload.php');
 
+#[Option('default-formatter', AccessModifierFormatter::class)]
+#[AddFilter(NoPrivate::class)]
+#[AddFilter(OnlyWithDumpAttribute::class)]
 class Test
 {
     use ModifiedDump;
@@ -39,21 +46,20 @@ class Test
     #[Dump]
     private string $a = "test";
     protected int $b;
+    #[Dump]
     public int | string $c = 5;
-    #[Dump(AccessModifierFormatter::class)]
+    #[Dump(Formatter::class)]
     private static $d;
-    #[Dump(AccessModifierFormatter::class)]
+    #[Dump(Formatter::class)]
     protected int | string $e;
 }
 
 var_dump(new Test());
 /*
-object(Test)#3 (3) {
-  ["a"]=>
-  string(4) "test"
-  ["-d"]=>
-  NULL
-  ["#e"]=>
+object(Test)#3 (2) {
+  ["+c"]=>
+  int(5)
+  ["e"]=>
   object(Berbeflo\ModifyDump\State\Uninitialized)#6 (0) {
   }
 }
