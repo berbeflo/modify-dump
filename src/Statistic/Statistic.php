@@ -8,4 +8,5 @@ use ReflectionProperty;
 interface Statistic
 {
     public function createStatistic(ReflectionProperty $property, object $context): mixed;
+    public function getStatisticIdentifier(): string;
 }
