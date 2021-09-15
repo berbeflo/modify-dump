@@ -13,6 +13,7 @@ class AccessModifierFormatter extends Formatter
             ReflectionProperty::IS_PUBLIC => '+',
             ReflectionProperty::IS_PROTECTED => '#',
             ReflectionProperty::IS_PRIVATE => '-',
+            default => '',
         };
         return $modifier . $this->property->getName();
     }
