@@ -8,5 +8,16 @@
             "Berbeflo\\ModifyDump\\": "src/"
         }
     },
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.6"
+    },
+    "scripts": {
+        "run-ci" : [
+            "phpcs --standard=PSR12 --report=xml src/"
+        ],
+        "check-cs" : [
+            "phpcs --standard=PSR12 --report=xml src/"
+        ]
+    }
 }
