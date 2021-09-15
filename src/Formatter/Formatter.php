@@ -9,7 +9,7 @@ use Berbeflo\ModifyDump\State\Uninitialized;
 class Formatter
 {
     public function __construct(
-        protected ReflectionProperty $property, 
+        protected ReflectionProperty $property,
         protected object $context
     ) {}
 
