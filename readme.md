@@ -15,7 +15,7 @@ Yeah...
 
 ### Functionality
 - Add more Formatters
-- Allow definition of filters to e.g. auto-exclude uninitialized properties
+- Add support for class statistics
 
 ## Usage
 ### Installation
