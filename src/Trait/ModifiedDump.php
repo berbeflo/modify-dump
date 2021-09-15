@@ -14,7 +14,7 @@ trait ModifiedDump
     {
         $builder = new DumpBuilder($this);
         $builder->parseDumpOptions();
-        
+
         return $builder->fetch();
     }
 }
