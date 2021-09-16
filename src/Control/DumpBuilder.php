@@ -93,7 +93,10 @@ class DumpBuilder
 
         $statistics = [];
         foreach ($this->statistics as $statistic) {
-            $statistics[$statistic->getStatisticIdentifier()] = $statistic->createStatistic($this->reflectionClass, $this->context);
+            $statistics[$statistic->getStatisticIdentifier()] = $statistic->createStatistic(
+                $this->reflectionClass,
+                $this->context
+            );
         }
         if (!empty($statistics)) {
             $out['__statistics'] = $statistics;
