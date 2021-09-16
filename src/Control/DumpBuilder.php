@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Berbeflo\ModifyDump\Control;
 
 use Berbeflo\ModifyDump\Attribute\AddFilter;
+use Berbeflo\ModifyDump\Attribute\AddStatistic;
 use ReflectionClass;
 use ReflectionProperty;
 use Berbeflo\ModifyDump\Attribute\Dump;
@@ -14,6 +15,7 @@ class DumpBuilder
     private ReflectionClass $reflectionClass;
     private Options $options;
     private array $filters;
+    private array $statistics;
 
     public function __construct(
         private object $context,
@@ -21,6 +23,7 @@ class DumpBuilder
         $this->reflectionClass = new ReflectionClass($context);
         $this->options = new Options();
         $this->filters = [];
+        $this->statistics = [];
     }
 
     public function parseDumpOptions(): self
@@ -44,6 +47,18 @@ class DumpBuilder
             $addFilterObject = $filter->newInstance();
             $filter = $addFilterObject->createFilter();
             $this->filters[] = $filter;
+        }
+
+        return $this;
+    }
+
+    public function parseStatistics(): self
+    {
+        $this->statistics = [];
+        foreach ($this->reflectionClass->getAttributes(AddStatistic::class) as $statistic) {
+            $addStatisticObject = $statistic->newInstance();
+            $statistic = $addStatisticObject->createStatisicObject();
+            $this->statistics[] = $statistic;
         }
 
         return $this;
@@ -74,6 +89,14 @@ class DumpBuilder
             }
 
             $out[$formatter->getIdentifier()] = $formatter->getValue();
+        }
+
+        $statistics = [];
+        foreach ($this->statistics as $statistic) {
+            $statistics[$statistic->getStatisticIdentifier()] = $statistic->createStatistic($this->reflectionClass, $this->context);
+        }
+        if (!empty($statistics)) {
+            $out['__statistics'] = $statistics;
         }
 
         return $out;
