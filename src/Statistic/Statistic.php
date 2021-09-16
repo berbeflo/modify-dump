@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Berbeflo\ModifyDump\Statistic;
 
-use ReflectionProperty;
+use ReflectionClass;
 
 interface Statistic
 {
-    public function createStatistic(ReflectionProperty $property, object $context): mixed;
+    public function createStatistic(ReflectionClass $class, object $context): mixed;
     public function getStatisticIdentifier(): string;
 }

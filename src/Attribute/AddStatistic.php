@@ -15,7 +15,7 @@ class AddStatistic
     ) {
     }
 
-    public function createStatisticClass(): Statistic
+    public function createStatisicObject(): Statistic
     {
         $interfaces = class_implements($this->statisticClass);
         if (!$interfaces || !array_key_exists(Statistic::class, $interfaces)) {

@@ -12,7 +12,9 @@ trait ModifiedDump
         $builder = new DumpBuilder($this);
         $builder
             ->parseDumpOptions()
-            ->parseFilters();
+            ->parseFilters()
+            ->parseStatistics()
+        ;
 
         return $builder->fetch();
     }
