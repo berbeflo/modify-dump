@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Berbeflo\ModifyDump\Control;
 
 use Berbeflo\ModifyDump\Attribute\AddFilter;
+use Berbeflo\ModifyDump\Attribute\AddStatistic;
 use ReflectionClass;
 use ReflectionProperty;
 use Berbeflo\ModifyDump\Attribute\Dump;
@@ -14,6 +15,7 @@ class DumpBuilder
     private ReflectionClass $reflectionClass;
     private Options $options;
     private array $filters;
+    private array $statistics;
 
     public function __construct(
         private object $context,
@@ -21,9 +23,10 @@ class DumpBuilder
         $this->reflectionClass = new ReflectionClass($context);
         $this->options = new Options();
         $this->filters = [];
+        $this->statistics = [];
     }
 
-    public function parseDumpOptions() : self
+    public function parseDumpOptions(): self
     {
         foreach ($this->reflectionClass->getAttributes(Option::class) as $option) {
             $optionObject = $option->newInstance();
@@ -37,7 +40,7 @@ class DumpBuilder
         return $this;
     }
 
-    public function parseFilters() : self
+    public function parseFilters(): self
     {
         $this->filters = [];
         foreach ($this->reflectionClass->getAttributes(AddFilter::class) as $filter) {
@@ -49,12 +52,27 @@ class DumpBuilder
         return $this;
     }
 
-    public function fetch() : array
+    public function parseStatistics(): self
+    {
+        $this->statistics = [];
+        foreach ($this->reflectionClass->getAttributes(AddStatistic::class) as $statistic) {
+            $addStatisticObject = $statistic->newInstance();
+            $statistic = $addStatisticObject->createStatisicObject();
+            $this->statistics[] = $statistic;
+        }
+
+        return $this;
+    }
+
+    public function fetch(): array
     {
         $out = [];
         $propertiesToShow = $this->reflectionClass->getProperties();
         foreach ($this->filters as $filter) {
-            $propertiesToShow = array_filter($propertiesToShow, fn (ReflectionProperty $property) => $filter->isAllowed($property, $this->context));
+            $propertiesToShow = array_filter(
+                $propertiesToShow,
+                fn (ReflectionProperty $property) => $filter->isAllowed($property, $this->context)
+            );
         }
 
         foreach ($propertiesToShow as $property) {
@@ -71,6 +89,17 @@ class DumpBuilder
             }
 
             $out[$formatter->getIdentifier()] = $formatter->getValue();
+        }
+
+        $statistics = [];
+        foreach ($this->statistics as $statistic) {
+            $statistics[$statistic->getStatisticIdentifier()] = $statistic->createStatistic(
+                $this->reflectionClass,
+                $this->context
+            );
+        }
+        if (!empty($statistics)) {
+            $out['__statistics'] = $statistics;
         }
 
         return $out;

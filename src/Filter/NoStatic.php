@@ -7,7 +7,7 @@ use ReflectionProperty;
 
 class NoStatic implements Filter
 {
-    public function isAllowed(ReflectionProperty $property, object $context) : bool
+    public function isAllowed(ReflectionProperty $property, object $context): bool
     {
         return !$property->isStatic();
     }

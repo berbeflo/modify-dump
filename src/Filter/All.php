@@ -7,7 +7,7 @@ use ReflectionProperty;
 
 class All implements Filter
 {
-    public function isAllowed(ReflectionProperty $property, object $context) : bool
+    public function isAllowed(ReflectionProperty $property, object $context): bool
     {
         return true;
     }
