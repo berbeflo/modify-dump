@@ -8,6 +8,11 @@
             "Berbeflo\\ModifyDump\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Berbeflo\\ModifyDump\\Tests\\": "tests/"
+        }
+    },
     "require-dev": {
         "php": ">=8.0",
         "squizlabs/php_codesniffer": "^3.6",
@@ -26,7 +31,7 @@
             "phpstan analyse src --level=5"
         ],
         "run-tests" : [
-            "phpunit --coverage-html cc --whitelist src --testdox --bootstrap tests/bootstrap.php tests"
+            "@php vendor/bin/phpunit --coverage-html cc --whitelist src --testdox --bootstrap tests/bootstrap.php tests"
         ],
         "run-tests-without-cc" : [
             "phpunit --whitelist src --testdox --bootstrap tests/bootstrap.php tests"
