@@ -22,6 +22,6 @@ class AddStatistic
             throw new InvalidArgumentException('The given class must implement ' . Statistic::class);
         }
 
-        return new $this->statisticClass();
+        return $this->statisticClass::create();
     }
 }

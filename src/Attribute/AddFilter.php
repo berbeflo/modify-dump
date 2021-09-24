@@ -22,6 +22,6 @@ class AddFilter
             throw new InvalidArgumentException('The given class must implement ' . Filter::class);
         }
 
-        return new $this->filterClass();
+        return $this->filterClass::create();
     }
 }
