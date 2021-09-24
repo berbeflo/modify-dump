@@ -5,7 +5,7 @@ namespace Berbeflo\ModifyDump\Control;
 
 trait DefaultCreateMethod
 {
-    public function create(): static
+    public static function create(): static
     {
         return new static();
     }

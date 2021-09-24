@@ -5,5 +5,5 @@ namespace Berbeflo\ModifyDump\Control;
 
 interface CreateInterface
 {
-    public function create(): static;
+    public static function create(): static;
 }
