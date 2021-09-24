@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Berbeflo\ModifyDump\Attribute\AddStatistic;
+use Berbeflo\ModifyDump\Control\DefaultCreateMethod;
 use Berbeflo\ModifyDump\Statistic\Statistic;
 use Berbeflo\ModifyDump\Trait\ModifiedDump;
 
@@ -10,6 +11,8 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 
 class PrivatePropertyCount implements Statistic
 {
+    use DefaultCreateMethod;
+
     public function createStatistic(ReflectionClass $class, object $context): mixed
     {
         return count($class->getProperties(ReflectionProperty::IS_PRIVATE));

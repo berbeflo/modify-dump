@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: check-cs
+name: check-ci
 
 on: [push, pull_request]
 
@@ -27,6 +27,6 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Test CI
-      run: composer check-cs
+      run: composer run-ci
     - name: Static Analysis
       run: composer check-stan

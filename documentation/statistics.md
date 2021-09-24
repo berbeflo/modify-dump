@@ -25,7 +25,8 @@ class Test
 To use multiple statistics, just use multiple `AddStatistic` attributes.
 # 2. Custom statistics
 ## 2.1. Create the statistic
-Statistics have to implement the interface `\Berbeflo\ModifyDump\Statistic\Statistic`, which defines the methods `createStatistic`, which returns the statistic data and `getStatisticIdentifier`, which returns the array key to be used for the statistic.
+Statistics have to implement the interface `\Berbeflo\ModifyDump\Statistic\Statistic`, which defines the methods `createStatistic`, which returns the statistic data and `getStatisticIdentifier`, which returns the array key to be used for the statistic.  
+It also defines the method `create` which must return the filter instance.
 ## 2.2. Use the statistic
 Pass the full qualified class name of the statistic class to the `#[AddStatistic]` attribute.
 # 3. Implemented statistics

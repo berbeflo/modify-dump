@@ -2,3 +2,4 @@ vendor/
 test/
 .vscode/
 composer.phar
+cc/
