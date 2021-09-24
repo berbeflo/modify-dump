@@ -27,6 +27,6 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Test CI
-      run: composer check-ci
+      run: composer run-ci
     - name: Static Analysis
       run: composer check-stan
