@@ -9,6 +9,7 @@ use ReflectionClass;
 use ReflectionProperty;
 use Berbeflo\ModifyDump\Attribute\Dump;
 use Berbeflo\ModifyDump\Attribute\Option;
+use Berbeflo\ModifyDump\Filter\OnlyWithDumpAttribute;
 
 class DumpBuilder
 {
@@ -47,6 +48,10 @@ class DumpBuilder
             $addFilterObject = $filter->newInstance();
             $filter = $addFilterObject->createFilter();
             $this->filters[] = $filter;
+        }
+
+        if (empty($this->filters)) {
+            $this->filters = [new OnlyWithDumpAttribute()];
         }
 
         return $this;
