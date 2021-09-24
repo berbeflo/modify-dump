@@ -9,6 +9,7 @@ use ReflectionClass;
 use ReflectionProperty;
 use Berbeflo\ModifyDump\Attribute\Dump;
 use Berbeflo\ModifyDump\Attribute\Option;
+use Berbeflo\ModifyDump\Filter\OnlyWithDumpAttribute;
 
 class DumpBuilder
 {
@@ -22,7 +23,7 @@ class DumpBuilder
     ) {
         $this->reflectionClass = new ReflectionClass($context);
         $this->options = new Options();
-        $this->filters = [];
+        $this->filters = [new OnlyWithDumpAttribute()];
         $this->statistics = [];
     }
 
