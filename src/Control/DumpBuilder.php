@@ -23,7 +23,7 @@ class DumpBuilder
     ) {
         $this->reflectionClass = new ReflectionClass($context);
         $this->options = new Options();
-        $this->filters = [new OnlyWithDumpAttribute()];
+        $this->filters = [];
         $this->statistics = [];
     }
 
@@ -48,6 +48,10 @@ class DumpBuilder
             $addFilterObject = $filter->newInstance();
             $filter = $addFilterObject->createFilter();
             $this->filters[] = $filter;
+        }
+
+        if (empty($this->filters)) {
+            $this->filters = [new OnlyWithDumpAttribute()];
         }
 
         return $this;
