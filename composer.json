@@ -27,6 +27,9 @@
         ],
         "run-tests" : [
             "phpunit --coverage-html cc --whitelist src --testdox --bootstrap tests/bootstrap.php tests"
+        ],
+        "run-tests-without-cc" : [
+            "phpunit --whitelist src --testdox --bootstrap tests/bootstrap.php tests"
         ]
     }
 }
