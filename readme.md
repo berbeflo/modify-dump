@@ -11,6 +11,7 @@
     - [1.4.3. Statistics](#143-statistics)
     - [1.4.4. Extendibility](#144-extendibility)
     - [1.4.5. Not restricted to var_dump](#145-not-restricted-to-var_dump)
+- [2. Navigation](#2-navigation)
 
 
 # 1. Modify Dump
@@ -67,7 +68,7 @@ object(Test)#3 (3) {
 ```
 
 ### 1.3.3. Further examples
-Coming soon...
+Have a look at the examples folder!
 
 ## 1.4. Features
 ### 1.4.1. Filters
@@ -81,6 +82,13 @@ Statistics allow to add class/object statistics to the output.
 It's easy to add new Formatters, Filters and Statistics.
 ### 1.4.5. Not restricted to var_dump
 While the delivered trait overrides `__debugInfo()`, the logic is decoupled from this method. So it'd be easy to use this library to e.g. write a simple `toArray()` method.
+
+# 2. Navigation
+- [Filters](documentation/filters.md)
+- [Formatters](documentation/formatters.md)
+- [Statistics](documentation/statistics.md)
+
+
 
 [phpdoc_debugInfo]: https://www.php.net/manual/en/language.oop5.magic.php#object.debuginfo
 [phpdoc_traits]: https://www.php.net/manual/en/language.oop5.traits.php
