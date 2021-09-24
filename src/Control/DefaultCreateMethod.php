@@ -7,6 +7,7 @@ trait DefaultCreateMethod
 {
     public static function create(): static
     {
+        /** @phpstan-ignore-next-line */
         return new static();
     }
 }
