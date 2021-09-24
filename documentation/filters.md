@@ -36,7 +36,8 @@ The default filter is `OnlyWithDumpAttribute`, which requires properties to be a
 
 # 2. Custom filters
 ## 2.1. Create the filter
-Filters have to implement the interface `\Berbeflo\ModifyDump\Filter\Filter`, which defines the method `isAllowed` with the signature `isAllowed(ReflectionProperty $property, object $context): bool`. If the property should be displayed, the method has to return `true`.
+Filters have to implement the interface `\Berbeflo\ModifyDump\Filter\Filter`, which defines the method `isAllowed` with the signature `isAllowed(ReflectionProperty $property, object $context): bool`. If the property should be displayed, the method has to return `true`.  
+It also defines the method `create` which must return the filter instance.
 ## 2.2. Use the filter
 Use the full qualified class name as argument for the `AddFilter` attribute.
 
